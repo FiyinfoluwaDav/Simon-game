@@ -29,10 +29,19 @@ buttons.forEach(function(button) {
     var userChosenColour = this.id;
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
+    animatePress(userChosenColour);
   });
 });
 
+//Funtion to play sound
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
   audio.play();
 }
+
+function animatePress(currentColor){
+    var pressedButton = document.getElementById(currentColor);
+    pressedButton.classList.add('pressed');
+    setTimeout(()=> {pressedButton.classList.remove('pressed');},100);
+}
+

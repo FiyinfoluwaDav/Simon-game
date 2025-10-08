@@ -2,38 +2,37 @@ var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 
+// Start game when any key is pressed
+document.addEventListener("keydown", function() {
+  nextSequence();
+});
 
 function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
 
-  // Flash animation (simulate fadeIn/fadeOut)
+  // Flash animation
   var button = document.getElementById(randomChosenColour);
-
   button.style.opacity = "0";
-  setTimeout(function () {
-    button.style.opacity = "1";
-  }, 100);
-  setTimeout(function () {
-    button.style.opacity = "0";
-  }, 200);
-  setTimeout(function () {
-    button.style.opacity = "1";
-  }, 300);
+  setTimeout(() => { button.style.opacity = "1"; }, 100);
+  setTimeout(() => { button.style.opacity = "0"; }, 200);
+  setTimeout(() => { button.style.opacity = "1"; }, 300);
 
-  // Play corresponding sound
-  var audio = new Audio("sounds/" + randomChosenColour + ".mp3");
-  audio.play();
-
-  //Check when button is pressed
-  button.addEventListener('click',function(){
-    userChosenColor = this.id;
-    userClickedPattern.push(userChosenColor);
-  })
+  playSound(randomChosenColour);
 }
 
-// Start game when any key is pressed
-document.addEventListener("keydown", function() {
-  nextSequence();
+// Attach listener to all buttons once
+var buttons = document.querySelectorAll(".btn");
+buttons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    var userChosenColour = this.id;
+    userClickedPattern.push(userChosenColour);
+    playSound(userChosenColour);
+  });
 });
+
+function playSound(name) {
+  var audio = new Audio("sounds/" + name + ".mp3");
+  audio.play();
+}

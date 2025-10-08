@@ -1,13 +1,21 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
+var level = 0;
 
 // Start game when any key is pressed
+var gameStart = false;
 document.addEventListener("keydown", function() {
-  nextSequence();
+  if(!gameStart){
+    gameStart = true;
+    nextSequence();
+  }
 });
 
+
 function nextSequence() {
+  level++;
+  document.getElementById('level-title').textContent = 'level '+ level;
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
@@ -18,7 +26,6 @@ function nextSequence() {
   setTimeout(() => { button.style.opacity = "1"; }, 100);
   setTimeout(() => { button.style.opacity = "0"; }, 200);
   setTimeout(() => { button.style.opacity = "1"; }, 300);
-
   playSound(randomChosenColour);
 }
 
@@ -39,6 +46,7 @@ function playSound(name) {
   audio.play();
 }
 
+// Function to animate press
 function animatePress(currentColor){
     var pressedButton = document.getElementById(currentColor);
     pressedButton.classList.add('pressed');

@@ -14,6 +14,7 @@ document.addEventListener("keydown", function() {
 
 
 function nextSequence() {
+  userClickedPattern.length = 0;
   level++;
   document.getElementById('level-title').textContent = 'level '+ level;
   var randomNumber = Math.floor(Math.random() * 4);
@@ -37,6 +38,7 @@ buttons.forEach(function(button) {
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
     animatePress(userChosenColour);
+    checkAnswer(userClickedPattern.length - 1);//Can I also use checkAnswer(userClickedPattern[-1]); 
   });
 });
 
@@ -51,5 +53,18 @@ function animatePress(currentColor){
     var pressedButton = document.getElementById(currentColor);
     pressedButton.classList.add('pressed');
     setTimeout(()=> {pressedButton.classList.remove('pressed');},100);
+}
+
+function checkAnswer(currentLevel) {
+  if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
+    console.log("Success");    
+    if(gamePattern.length=== userClickedPattern.length){
+      setTimeout(() => {
+        nextSequence();
+      }, 1000);
+    }
+  }else{
+    console.log("Wrong");
+  }
 }
 

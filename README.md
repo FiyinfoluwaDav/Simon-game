@@ -2,6 +2,7 @@
 
 This is a web-based implementation of the classic electronic memory game, Simon. The game tests your memory by challenging you to repeat a sequence of colors and sounds.
 
+![Level_1](image.png)
 ## How to Play
 
 1.  **Start the Game:** Press any key to start the game.
